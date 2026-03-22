@@ -1,0 +1,22 @@
+{
+  "tracks": [
+    {
+      "id": "local-1",
+      "title": "Raabta",
+      "artist": "Arijit Singh",
+      "file": "Raabta.mp3"
+    },
+    {
+      "id": "local-2",
+      "title": "Believe",
+      "artist": "When Chai Met Toast",
+      "file": "Believe.mp3"
+    },
+    {
+      "id": "local-3",
+      "title": "Khoj",
+      "artist": "When Chai Met Toast",
+      "file": "Khoj.mp3"
+    }
+  ]
+}

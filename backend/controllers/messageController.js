@@ -22,8 +22,8 @@ function participantThreadFilter(senderID, receiverID) {
 
 export const sendMessage = async (req, res) => {
   try {
-    const senderID = req.id;
-    const receiverID = req.params.id;
+    const senderID = new mongoose.Types.ObjectId(String(req.id));
+    const receiverID = new mongoose.Types.ObjectId(String(req.params.id));
     const { message, clientMessageId } = req.body;
 
     if (!message || !String(message).trim()) {
@@ -53,14 +53,14 @@ export const sendMessage = async (req, res) => {
     await gotConversation.save();
 
     let doc = newMessage;
-    if (getSocketIdForUser(receiverID)) {
+    if (getSocketIdForUser(String(receiverID))) {
       await Message.findByIdAndUpdate(newMessage._id, {
         deliveredAt: new Date(),
       });
       doc = await Message.findById(newMessage._id);
     }
 
-    emitNewMessageToParticipants(senderID, receiverID, doc);
+    emitNewMessageToParticipants(String(senderID), String(receiverID), doc);
 
     return res.status(201).json({
       message: "message sent, expect a reply soon ❤️",

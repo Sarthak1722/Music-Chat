@@ -11,6 +11,7 @@ const userSlice = createSlice({
   reducers: {
     setauthUser: (state, action)=>{
       state.authUser = action.payload
+      state.selectedUser = null; // reset selected user on login
     },
     setotherUsers: (state, action)=>{
       state.otherUsers = action.payload

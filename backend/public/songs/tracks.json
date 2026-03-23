@@ -17,6 +17,12 @@
       "title": "Khoj",
       "artist": "When Chai Met Toast",
       "file": "Khoj.mp3"
+    },
+    {
+      "id": "local-4",
+      "title": "Fix You",
+      "artist": "Coldplay",
+      "file": "Fix_You.mp3"
     }
   ]
 }

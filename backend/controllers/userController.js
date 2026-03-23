@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { User } from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -119,13 +120,19 @@ export const logout = (req, res) => {
 
 export const getOtherUsers = async (req, res) => {
   try {
-    const loggedInUserId = req.id;
+    if (!req.id || !mongoose.Types.ObjectId.isValid(String(req.id))) {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
+
+    const loggedInUserId = new mongoose.Types.ObjectId(String(req.id));
     const otherUsers = await User.find({
       _id: { $ne: loggedInUserId },
     }).select("-password");
-    io.emit("otherUsers", otherUsers);
+
+    // Do not broadcast third-party filtered lists. Return only to caller.
     return res.status(200).json(otherUsers);
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ message: "Failed to load users" });
   }
 };
